@@ -1,0 +1,52 @@
+@charset "UTF-8";
+.recharge-form{
+	width: 100%;
+	margin-top:2.56rem;
+}
+
+.form-con{
+    width: 100%;
+    padding:0.51rem;
+    height:1.92rem;
+    background-color: #fff;
+    margin-top:0.43rem;
+}
+
+.form-con label{
+	font-weight: normal;
+	font-size:0.68rem;
+	width:3.84rem;
+	height: 100%;
+}
+
+.form-con input{
+	float: right;
+	width:11rem;
+	height: 100%;
+	border:none!important;
+	outline:none!important;
+}
+
+.recharge-bot{
+	color:#999;
+	text-align: center;
+	margin-top:0.43rem;
+}
+
+.recharge-submit{
+    display: block;
+    width:100%;
+    padding:0 0.51rem;
+    margin-top:2.13rem;
+}
+
+.recharge-submit input{
+	background-color: #108ee9;
+	height: 1.71rem;
+	line-height: 1.71rem;
+	color:#fff;
+	border-radius: 0.17rem;
+	outline: none!important;
+	border: none!important;
+	font-size:0.68rem;
+}

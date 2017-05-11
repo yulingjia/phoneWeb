@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的代理信息</title>
+    <!--css文件-->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/information.css">
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="css/dropload.css">
+</head>
+<body>
+<header class="header">
+    <h3 class="header-title">我的代理信息</h3>
+    <a class="header-back" href="javascript:window.history.go(-1)">
+        <span class="header-back-icon"></span>
+        <span>返回</span>
+    </a>
+</header>
+<div class="info-top">
+    <ul class="info-top-title">
+        <li class="active">我的下级</li>
+        <li>我的上级</li>
+        <li>我的信息</li>
+    </ul>
+</div>
+<section class="section">
+    <div class="content">
+        <div class="lists"></div>
+        <!--<div class="lists"></div>
+        <div class="lists"></div>-->
+    </div>
+
+</section>
+    <!--js文件-->
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/dropload.min.js"></script>
+    <script src="js/mobile-util.js"></script>
+
+    <script>
+    $(function(){
+
+        $('.info-top-title li').on('click',function(){
+            var $this = $(this);
+            $('.info-top-title li').removeClass('active');
+            $this.addClass('active');
+        });
+
+        var counter = 0;
+        // 每页展示4个
+        var num = 4;
+        var pageStart = 0,pageEnd = 0;
+
+        // dropload
+        $('.content').dropload({
+            scrollArea : $('.lists'),
+            domUp : {
+                domClass   : 'dropload-up',
+                domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+                domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+            },
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadUpFn : function(me){
+                $.ajax({
+                    type: 'GET',
+                    url: 'json/update1.json',
+                    dataType: 'json',
+                    success: function(data){
+                        var result = '';
+                        for(var i = 0; i < data.lists.length; i++){
+                            result += '<div class="info-contain"><div class="info-image"><img src="'+data.lists[i].src+'"></div><div class="info-mes"><h3>手机号：'+data.lists[i].phoneNum+'</h3><p><span>微信号：'+data.lists[i].weChatNum+'</span><span>微信昵称：'+data.lists[i].weChatName+'</span></p><p> <span>游戏ID：'+data.lists[i].playNum+'</span><span>代理ID：'+data.lists[i].agencyNum+'</span></p></div></div>'
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            $('.lists').html(result);
+                            // 每次数据加载完，必须重置
+                            me.resetload();
+                            // 重置索引值，重新拼接json数据
+                            counter = 0;
+                            // 解锁
+                            me.unlock();
+                            me.noData(false);
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            },
+            loadDownFn : function(me){
+                $.ajax({
+                    type: 'GET',
+                    url: 'json/update2.json',
+                    dataType: 'json',
+                    success: function(data){
+                        var result = '';
+                        counter++;
+                        pageEnd = num * counter;
+                        pageStart = pageEnd - num;
+
+                        for(var i = pageStart; i < pageEnd; i++){
+                            result += '<div class="info-contain"><div class="info-image"><img src="'+data.lists[i].src+'"></div><div class="info-mes"><h3>手机号：'+data.lists[i].phoneNum+'</h3><p><span>微信号：'+data.lists[i].weChatNum+'</span><span>微信昵称：'+data.lists[i].weChatName+'</span></p><p> <span>游戏ID：'+data.lists[i].playNum+'</span><span>代理ID：'+data.lists[i].agencyNum+'</span></p></div></div>';
+                            if((i + 1) >= data.lists.length){
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                                break;
+                            }
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            $('.lists').append(result);
+                            // 每次数据加载完，必须重置
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            },
+            threshold : 50
+        });
+    });
+</script>
+</body>
+</html>

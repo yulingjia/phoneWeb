@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">-->
+    <title>充值</title>
+    <!--css文件-->
+    <!--bootstrap-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/recharge.css">
+</head>
+<body>
+    <header class="header">
+        <h3 class="header-title">充值</h3>
+        <a class="header-back" href="javascript:window.history.go(-1)">
+            <span class="header-back-icon"></span>
+            <span>返回</span>
+        </a>
+    </header>
+    <section class="section">
+        <form action="" class="recharge-form">
+            <div class="form-con">
+                <label for="player">玩家ID</label>
+                <input type="text" id="player" placeholder="请输入">
+            </div>
+            <div class="form-con">
+                <label for="renum">充值数</label>
+                <input type="number" id="renum" placeholder="请输入">
+            </div>
+            <p class="recharge-bot">剩余可用房卡13792张</p>
+            <div class="recharge-submit">
+                <input class="recharge-submit" type="submit" value="确认充值">
+            </div>
+        </form>
+    </section>
+
+
+    <!--js文件-->
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/mobile-util.js"></script>
+</body>
+</html>

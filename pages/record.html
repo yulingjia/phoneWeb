@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值记录</title>
+    <!--css文件-->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/record.css">
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="css/dropload.css">
+</head>
+<body>
+    <header class="header">
+        <h3 class="header-title">充值记录</h3>
+        <a class="header-back" href="javascript:window.history.go(-1)">
+            <span class="header-back-icon"></span>
+            <span>返回</span>
+        </a>
+    </header>
+    <section class="section">
+        <div class="record-search">
+            <div class="search-con">
+                <span class="sea-icon"></span>
+                <input class="sea-input" type="text" placeholder="输入玩家ID">
+            </div>
+        </div>
+        <p class="search-title">充值记录</p>
+        <div class="content">
+            <div class="lists">
+                <table class="search-table">
+                    <thead>
+                    <tr>
+                        <th>充值时间</th>
+                        <th>玩家ID</th>
+                        <th>充值数量</th>
+                    </tr>
+                    </thead>
+                    <tbody class="search-table-con"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!--js文件-->
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/dropload.min.js"></script>
+    <script src="js/mobile-util.js"></script>
+    <script>
+        $(function(){
+            var counter = 0;
+            // 每页展示4个
+            var num = 4;
+            var pageStart = 0,pageEnd = 0;
+
+            // dropload
+            $('.content').dropload({
+                scrollArea : window,
+                loadDownFn : function(me){
+                    $.ajax({
+                        type: 'GET',
+                        url: 'json/more.json',
+                        dataType: 'json',
+                        success: function(data){
+                            var result = '';
+                            counter++;
+                            pageEnd = num * counter;
+                            pageStart = pageEnd - num;
+
+                            for(var i = pageStart; i < pageEnd; i++){
+                                result +='<tr><td>'+data.lists[i].time+'</td><td>'+data.lists[i].name+'</td><td>'+data.lists[i].number+'</td></tr>';
+                                if((i + 1) >= data.lists.length){
+                                    // 锁定
+                                    me.lock();
+                                    // 无数据
+                                    me.noData();
+                                    break;
+                                }
+                            }
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function(){
+                                $('.search-table-con').append(result);
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                            },1000);
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

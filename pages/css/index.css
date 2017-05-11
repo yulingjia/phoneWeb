@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/*首页*/
+.section-top{
+	width: 100%;
+	background-color: #fff;
+	height: 4.27rem;
+	margin-top:0.43rem;
+}
+
+.section-top-con{
+	float:left;
+	width: 5.33rem;
+	height: 2.56rem;
+	margin-top:0.85rem;
+	text-align: center;
+	border-right:0.04rem solid #ddd;
+}
+
+.section-top-con:last-child{
+	border-right:none;
+}
+
+.section-top-con>h3{
+	font-size:1.11rem;
+	padding:0 0.21rem;
+	font-weight: bold;
+	margin-bottom: 0.43rem;
+	width: 5.33rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.section-top-con>p{
+	width: 5.33rem;
+	padding:0 0.21rem;
+	color:#999;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.section-link{
+	background-color: #fff;
+	margin-top:0.43rem;
+}
+
+.section-link-con{
+	width:100%;
+	height: 1.71rem;
+	line-height: 1.71rem;
+}
+
+.section-link-con a{
+	display: block;
+	width: 100%;
+	height: 1.71rem;
+	line-height: 1.71rem;
+	padding-left: 0.51rem;
+	color:#333!important;
+	text-decoration:none!important;
+}
+
+.section-link-con a>span{
+	color:#333!important;
+	text-decoration:none!important;
+}
+
+.section-link-con a>img{
+	float: right;
+	margin-right: 0.51rem;
+	width:0.6rem;
+	margin-top:0.4rem;
+}
